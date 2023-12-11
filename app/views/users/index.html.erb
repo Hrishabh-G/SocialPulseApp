@@ -1,0 +1,9 @@
+<% if current_user %>
+  <%= form_with(url: logout_path, method: :delete, local: false) do %>
+    <%= submit_tag 'Logout' %>
+  <% end %>
+<% else %>
+  <%= link_to 'Login', login_path %>
+<% end %>
+
+<h1>Welcome</h1>
