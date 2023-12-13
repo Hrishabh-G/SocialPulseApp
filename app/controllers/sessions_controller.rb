@@ -1,5 +1,10 @@
 class SessionsController < ApplicationController
   def new
+    if current_user
+      redirect_to home_path
+    else
+      render :new
+    end
   end
 
   def create

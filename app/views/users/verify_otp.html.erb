@@ -1,0 +1,58 @@
+<!-- app/views/users/verify_otp.html.erb -->
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>verify_otp</title>
+    <%= stylesheet_link_tag 'session/new' %>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+     
+      form {
+        margin-top: 50px;
+      }
+
+      .form form {
+        max-width: 400px; /* Adjust width as needed */
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+
+      .form label,
+      .form input[type="text"],
+      .form input[type="submit"] {
+        display: block;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>  
+    <div class="form">
+      <%= form_with url: validate_otp_path(@user), method: :post do |f| %>
+        <div>
+          <%= f.label :otp, 'Enter OTP:' %>
+          <%= f.text_field :otp %>
+        </div>
+
+        <%= f.submit 'Verify OTP' %>
+      <% end %>
+    </div>
+
+    <% if params[:notice].present? %>
+      <div class="notice">
+        <%= params[:notice] %>
+      </div>
+    <% end %>
+    <%# <script src="index.js"></script> %>
+  </body>
+</html>

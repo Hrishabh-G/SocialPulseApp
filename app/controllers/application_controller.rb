@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  # before_action :require_login
+  # before_action :require_login, only: [:new, :create]
+
 
   def greeting_page
     if current_user

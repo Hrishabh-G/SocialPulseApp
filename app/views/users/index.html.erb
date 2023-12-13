@@ -1,3 +1,4 @@
+<%# <body style="background-image: none;"> %>
 <% if current_user %>
   <%= form_with(url: logout_path, method: :delete, local: false) do %>
     <%= submit_tag 'Logout' %>
