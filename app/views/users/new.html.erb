@@ -8,14 +8,6 @@
 
   <%= form.submit 'Login' %>
 <% end %>-->
-
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign up</title>
-    <%= stylesheet_link_tag 'session/new' %>
     <style>
       body {
         display: flex;
@@ -47,15 +39,22 @@
         /* width: 100%; Adjust the width as needed */
       }
     </style>
-  </head>
-  <body>
+  
     <div class="content">
       <h1>Welcome to Social-pulse</h1>
       <p>Be ready to run the world on your fingers</p>
     </div>
+
+    <% if @user.errors.full_messages.any? %>
+        <% @user.errors.full_messages.each do |error_message| %>
+         <p><%= error_message %> </p>
+        <% end %>
+      <% end %>
     
     <div class="form">
       <%= form_with(model: @user, local: true) do |form| %>
+      
+      
         <%= form.label :name %>
         <%= form.text_field :name %>
 
@@ -74,6 +73,8 @@
         <%= form.submit %>
       <% end %>
     </div>
-    <%# <script src="index.js"></script> %>
-  </body>
-</html>
+    <% if @user.errors.full_messages.any? %>
+        <% @user.errors.full_messages.each do |error_message| %>
+          <p style="color: red;"><%= error_message %> </p>
+        <% end %>
+    <% end %>

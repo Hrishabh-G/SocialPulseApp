@@ -43,8 +43,8 @@ class UsersController < ApplicationController
       @user.update(otp: otp)
       redirect_to verify_otp_path(@user)
     else
-      flash.now[:error] = 'Failed to create user. Please check the provided information.'
-      render :new
+      # flash.now[:error] = 'Failed to create user. Please check the provided information.'
+      render :new, status: :unprocessable_entity
     end
   end
   
