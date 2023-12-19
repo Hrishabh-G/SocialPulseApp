@@ -62,7 +62,7 @@ class UsersController < ApplicationController
       redirect_to root_url, notice: 'Phone number verified successfully! You are now logged in.'
     else
       flash[:error] = 'Invalid OTP. Please try again.'
-      redirect_to verify_otp_path(@user)
+      redirect_to verify_otp_path(@user), status: :unprocessable_entity
     end
   end
 

@@ -72,3 +72,7 @@ group :test do
 end
 gem 'bcrypt'
 gem 'byebug'
+
+gem 'twilio-ruby'
+gem 'dotenv-rails' 
+gem 'phony_rails'

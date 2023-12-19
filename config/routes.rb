@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'password_resets/new'
+  get 'password_resets/create'
+  get 'password_resets/edit'
+  get 'password_resets/update'
   # get 'sessions/new'
   # get 'sessions/create'
   # get 'sessions/destroy'
@@ -22,4 +26,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  
+  resources :password_resets, only: [:new, :create, :edit, :update]
+  get '/password_resets', to: redirect('/password_resets/new')
+  get '/password_resets/:id/edit(.:format)', to: 'password_resets#edit'
 end
