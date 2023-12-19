@@ -9,9 +9,22 @@ class User < ApplicationRecord
 
   before_validation :format_phone_number
 
+  def generate_password_reset_token
+    # byebug
+    self.password_reset_token = SecureRandom.urlsafe_base64
+    # self.password_reset_sent_at = Time.zone.now
+    save!
+  end
+
+  def clear_password_reset_token
+    # byebug
+    update(password_reset_token: nil)
+  end
+  
   private
 
   def format_phone_number
     self.phone_number = PhonyRails.normalize_number(phone_number, default_country_code: 'IN')
   end
 end
+# password_reset_sent_at: nil
