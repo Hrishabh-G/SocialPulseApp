@@ -3,7 +3,6 @@ class PasswordResetsController < ApplicationController
   end
 
   def create
-    # byebug
     user = User.find_by(email: params[:user][:email])
     if user
       user.generate_password_reset_token
@@ -15,10 +14,9 @@ class PasswordResetsController < ApplicationController
   end
 
   def edit
-    # byebug
     @user = User.find_by(password_reset_token: params[:id])
-    # if @user && @user.password_reset_sent_at > 2.hours.ago
-    if @user
+    if @user && @user.password_reset_sent_at > 2.hours.ago
+    # if @user
       render :edit
       # Render the form for resetting the password
     else
@@ -28,10 +26,11 @@ class PasswordResetsController < ApplicationController
   end
 
   def update
-    # byebug
     @user = User.find_by(password_reset_token: params[:id])
-    # if @user && @user.password_reset_sent_at > 2.hours.ago
-      if @user.update(password_params)
+    if @user && @user.password_reset_sent_at.present? && @user.password_reset_sent_at > 2.hours.ago
+      @user.password = params[:user][:password]
+      @user.password_confirmation = params[:user][:password_confirmation] 
+      if @user.save(validate: false)
         # Clear the password_reset_token after successful password update
         @user.clear_password_reset_token
         # Redirect to login or a confirmation page
@@ -39,10 +38,10 @@ class PasswordResetsController < ApplicationController
       else
         render :edit, status: :unprocessable_entity
       end
-    # else
-    #   # Handle invalid/expired token
-    #   redirect_to new_password_reset_path, alert: "Password reset token is invalid or has expired."
-    # end
+    else
+      # Handle invalid/expired token
+      redirect_to new_password_reset_path, alert: "Password reset token is invalid or has expired."
+    end
   end
 
   private

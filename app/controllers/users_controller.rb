@@ -57,9 +57,9 @@ class UsersController < ApplicationController
     otp = params[:otp]
 
     if otp == @user.otp
-      @user.update(verified: true, otp: nil)
+      @user.update_columns(verified: true, otp: nil)
       session[:user_id] = @user.id
-      redirect_to root_url, notice: 'Phone number verified successfully! You are now logged in.'
+      redirect_to root_path, notice: 'Phone number verified successfully!'
     else
       flash[:error] = 'Invalid OTP. Please try again.'
       redirect_to verify_otp_path(@user), status: :unprocessable_entity

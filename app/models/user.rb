@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+  attr_accessor :password_reset
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: /\A[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\z/ }
@@ -10,21 +11,18 @@ class User < ApplicationRecord
   before_validation :format_phone_number
 
   def generate_password_reset_token
-    # byebug
     self.password_reset_token = SecureRandom.urlsafe_base64
-    # self.password_reset_sent_at = Time.zone.now
-    save!
+    self.password_reset_sent_at = Time.zone.now
+    save!(validate: false)
   end
 
   def clear_password_reset_token
-    # byebug
-    update(password_reset_token: nil)
+    update_columns(password_reset_token: nil, password_reset_sent_at: nil)
   end
   
   private
 
   def format_phone_number
     self.phone_number = PhonyRails.normalize_number(phone_number, default_country_code: 'IN')
-  end
+  end 
 end
-# password_reset_sent_at: nil

@@ -12,7 +12,8 @@ class OtpController < ApplicationController
       flash[:success] = 'OTP Verified Successfully!'
       # Clear OTP after verification
       @user.update(otp: nil)
-      redirect_to root_path,
+      # @user.update(verified: true)
+      redirect_to root_path
     else
       flash[:error] = 'Invalid OTP. Please try again.'
       redirect_to verify_otp_path(@user), status: :unprocessable_entity
