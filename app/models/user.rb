@@ -1,7 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
-  attr_accessor :password_reset
-
+  
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: /\A[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\z/ }
   validates :password, length: { minimum: 8 }, if: -> { new_record? || !password.nil? }
