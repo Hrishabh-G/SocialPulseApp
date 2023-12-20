@@ -16,7 +16,6 @@ class PasswordResetsController < ApplicationController
   def edit
     @user = User.find_by(password_reset_token: params[:id])
     if @user && @user.password_reset_sent_at > 2.hours.ago
-    # if @user
       render :edit
       # Render the form for resetting the password
     else
@@ -27,7 +26,7 @@ class PasswordResetsController < ApplicationController
 
   def update
     @user = User.find_by(password_reset_token: params[:id])
-    if @user && @user.password_reset_sent_at.present? && @user.password_reset_sent_at > 2.hours.ago
+    if @user && @user.password_reset_sent_at.present? && @user.password_reset_sent_at > 5.minutes.ago
       @user.password = params[:user][:password]
       @user.password_confirmation = params[:user][:password_confirmation] 
       if @user.save(validate: false)
