@@ -12,6 +12,7 @@ class OtpController < ApplicationController
       flash[:success] = 'OTP Verified Successfully!'
       # Clear OTP after verification
       @user.update(otp: nil)
+      # @user.update(verified: true)
       redirect_to root_path
     else
       flash[:error] = 'Invalid OTP. Please try again.'
