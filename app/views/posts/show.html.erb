@@ -1,0 +1,11 @@
+<!-- Display Post Content -->
+
+<!-- Display Comments -->
+<% @comments.each do |comment| %>
+  <div class="comment">
+    <p><strong><%= comment.user.name %></strong>: <%= comment.content %></p>
+    <%= render partial: 'comments/comment_form', locals: { post: @post, comment: Comment.new(parent_comment_id: comment.id) } %>
+  </div>
+<% end %>
+
+<%= render 'comments/comment_form', commentable: @post %>

@@ -1,0 +1,12 @@
+<!-- app/views/comments/index.html.erb -->
+
+<h2><%= @post.title %></h2>
+<p><%= @post.content %></p>
+
+<% @comments.each do |comment| %>
+  <div>
+    <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+    <%= render partial: 'comments/comment_form', locals: { post: @post, comment: Comment.new(parent_comment_id: comment.id) } %>
+<% end %>
+
+<%= render partial: 'comments/comment_form', locals: { post: @post, comment: @comment } %>

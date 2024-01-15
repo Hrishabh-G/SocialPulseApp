@@ -1,0 +1,12 @@
+<% @posts.each do |post| %>
+  <div>
+    <p><strong><%= post.user.name %>:</strong></p>
+    <p><%= post.content %></p>
+    <% if post.image.attached? %>
+      <%= image_tag post.image %>
+    <% end %>
+    <% if post.video.attached? %>
+      <%= video_tag post.video %>
+    <% end %>
+  </div>
+<% end %>

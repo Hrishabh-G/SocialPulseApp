@@ -30,4 +30,27 @@ Rails.application.routes.draw do
   resources :password_resets, only: [:new, :create, :edit, :update]
   get '/password_resets', to: redirect('/password_resets/new')
   get '/password_resets/:id/edit(.:format)', to: 'password_resets#edit'
+
+
+  get '/auth/google_oauth2/callback', to: 'sessions#GoogleAuth'
+  get '/auth/failure', to: redirect('/')
+  # get '/auth/:provider', to: 'sessions#new', as: :auth_provider
+  # get '/auth/google_oauth2', as: :google_login
+
+  resources :posts, only: [:index, :new, :create]
+
+  resources :posts do
+    resources :comments, only: [:new, :create, :destroy, :index]
+  end
+  
+  # resources :comments do
+  #   resources :replies, only: [:create, :destroy]
+  # end
+
+  # resources :posts do
+  #   resources :comments do
+  #     resources :replies
+  #   end
+  # end
+  
 end

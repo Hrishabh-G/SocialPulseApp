@@ -7,6 +7,9 @@ require 'dotenv/load' if Rails.env.development? || Rails.env.test?
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# config.middleware.insert_after ActiveRecord::Migration::CheckPending, ActionDispatch::Cookies
+# config.middleware.insert_after ActionDispatch::Cookies, ActionDispatch::Session::CopkieStore
+
 module SocialPulseApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

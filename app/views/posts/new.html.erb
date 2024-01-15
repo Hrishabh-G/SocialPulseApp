@@ -1,0 +1,6 @@
+<%= form_with(model: @post, url: posts_path, multipart: true) do |form| %>
+  <%= form.text_area :content, placeholder: 'Write your post here' %>
+  <%= form.file_field :image %>
+  <%= form.file_field :video %>
+  <%= form.submit 'Create Post' %>
+<% end %>
