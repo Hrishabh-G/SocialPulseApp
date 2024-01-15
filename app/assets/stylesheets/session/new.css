@@ -1,9 +1,9 @@
-body {
+/* body {
   background-image: url("/assets/first.avif");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
   /* background-position: center; */
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif;
   color: rgb(226, 240, 223);
   margin: 0;
   padding: 0;
@@ -12,7 +12,7 @@ body {
   align-items: center;
   height: 100vh;
   background-color: #f5f5f5;
-}
+} */
 
 .login-container {
   display: flex;

@@ -1,0 +1,9 @@
+<!-- app/views/comments/_form.html.erb -->
+<!--<%= form_with(model: Comment.new, url: post_comments_path, method: :post, local: true) do |form| %>
+  <%= form.hidden_field :commentable_id, value: commentable.id %>
+  <%= form.hidden_field :commentable_type, value: commentable.class.to_s %>
+  <%= form.hidden_field :post_id, value: commentable.is_a?(Post) ? commentable.id : nil %>
+
+  <%= form.text_area :content, placeholder: 'Add a comment...' %>
+  <%= form.submit 'Add Comment' %>
+<% end %>-->

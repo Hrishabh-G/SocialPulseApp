@@ -1,10 +1,100 @@
 <%# <body style="background-image: none;"> %>
-<% if current_user %>
+<!--<% if current_user %>
   <%= form_with(url: logout_path, method: :delete, local: false) do %>
     <%= submit_tag 'Logout' %>
   <% end %>
 <% else %>
   <%= link_to 'Login', login_path %>
-<% end %>
+<% end %>-->
 
-<h1>Welcome</h1>
+<%# <h1>Welcome</h1> %>
+
+
+
+<!--<% @posts.each do |post| %>
+  <div>
+    <p><strong><%= post.user.name %>:</strong></p>
+    <p><%= post.content %></p>
+    <% if post.image.attached? %>
+      <%= image_tag post.image %>
+    <% end %>
+    <% if post.video.attached? %>
+      <%= video_tag post.video %>
+    <% end %>
+  </div>
+<% end %>-->
+
+
+
+
+
+
+-----------------------------------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SocialPulse</title> 
+  <style>
+    <%= stylesheet_link_tag 'session/home'%>
+  </style>
+</head>
+<body>
+  <div class="main">
+    <header class="main-header">
+      <p class="app-name"><strong>social-pulse</strong></p>
+      <div class="header_icons">
+        <img style="width: 5vh; height:5vh" src="<%= asset_path('notification_icon.png') %>" alt="Notifications">
+        <img style="width: 5vh; height:5vh" src="<%= asset_path('message_icon')%>" alt="Messages">
+      </div>
+    </header> 
+    <div class="post-container">
+       <%= link_to 'create_post', new_post_path%>
+       
+        <% @posts.each do |post| %>
+          <div class="posts">
+            <div class="user-name-section">
+              <strong><%= post.user.name %></strong>
+              <h3><%= post.title %></h3>
+              <p><%= post.content %></p>
+            </div>
+            <div class="post-content-section">
+              
+              <% if post.image.attached? %>
+                <%= image_tag post.image, style: "height: 80vh; width: 40vw;"%>
+              <% end %>
+              <% if post.video.attached? %>
+                <%= video_tag post.video, style: "height: 80vh; width: 40vw;" %>
+              <% end %>
+              
+              <!-- Display other post details -->
+            </div>
+            <div class="action-buttons-section">
+             <!--<%= link_to new_post_path do %>
+                <img style="width: 5vh; height:5vh" src="<%= asset_path('create_icon.png') %>" alt="Create">
+              <% end %>-->
+              <img class="icon" src="<%= asset_path('like_button.png') %>" alt="Notifications">
+              
+              <%= link_to post_comments_path(post) do %>
+                <%= image_tag(asset_path('comment_button.png'), class: 'icon', alt: 'comments') %>
+              <% end %>
+              
+              <img class="icon" src="<%= asset_path('share_button.png') %>" alt="Notifications">
+            </div>
+          </div>
+        <% end %>
+      
+    </div>
+  <!-- <footer>
+      <div class="footer_icons">
+        <img src="<%= asset_path('home_icon.png')%>" alt="Home">
+        <img src="<%= asset_path('search_icon.png')%>" alt="Search">
+        <%= link_to new_post_path do %>
+          <img src="<%= asset_path('create_icon.png') %>" alt="Create">
+        <% end %>
+        <img src="<%= asset_path('account_icon.png')%>" alt="Account">
+      </div>
+    </footer>-->
+  </div>
+</body>
+</html>
