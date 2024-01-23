@@ -24,7 +24,7 @@ class PostsController < ApplicationController
 
   def show
     # @post = Post.find(params[:id])
-    @comments = @post.comments.includes(:replies)
+    @comments = @post.comments
     @comment = Comment.new
   end
 
@@ -38,6 +38,20 @@ class PostsController < ApplicationController
     @post.destroy
     redirect_to posts_url, notice: 'Post was successfully deleted.'
   end
+
+  def like
+    # byebug
+    @post = Post.find(params[:id])
+    like = @post.likes.find_or_initialize_by(user: current_user)
+
+    if like.persisted?
+      like.destroy
+    else
+      like.save
+    end
+    redirect_to posts_path
+  end
+
   private
 
   def set_post

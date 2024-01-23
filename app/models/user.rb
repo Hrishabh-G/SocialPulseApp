@@ -2,11 +2,15 @@ class User < ApplicationRecord
   has_secure_password
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :liked_posts, through: :likes, source: :post
+  has_one_attached :profile_picture
+  has_one_attached :cover_photo
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: /\A[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\z/ }
   validates :password, length: { minimum: 8 }, if: -> { new_record? || !password.nil? }
   validates :phone_number, presence: true, uniqueness: true, phony_plausible: true
-  validates :otp, presence: true, if: -> { verified? }
+  # validates :otp, presence: true, if: -> { verified? }
 
   before_validation :format_phone_number
 

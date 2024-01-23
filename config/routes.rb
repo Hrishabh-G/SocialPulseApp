@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'profiles/show'
+  get 'profiles/edit'
+  get 'profiles/update'
   get 'password_resets/new'
   get 'password_resets/create'
   get 'password_resets/edit'
@@ -40,13 +43,22 @@ Rails.application.routes.draw do
   resources :posts, only: [:index, :new, :create]
 
   resources :posts do
+    member do
+      post 'like'
+    end
     resources :comments, only: [:new, :create, :destroy, :index]
   end
   
-  # resources :comments do
-  #   resources :replies, only: [:create, :destroy]
-  # end
+  resources :profiles, only: [:show, :edit, :update]
+  resources :comments do
+    resources :replies, only: [:create, :destroy]
+  end
 
+  resources :comments do
+    member do
+      post 'reply'
+    end
+  end
   # resources :posts do
   #   resources :comments do
   #     resources :replies
