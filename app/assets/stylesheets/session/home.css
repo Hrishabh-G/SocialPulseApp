@@ -143,3 +143,10 @@ body, html {
   height:5vh;
   margin: 1vw;
 }
+
+.icon2{
+  width: 5vh;
+  height:5vh;
+  margin: 1vw;
+  border-radius: 20px;
+}

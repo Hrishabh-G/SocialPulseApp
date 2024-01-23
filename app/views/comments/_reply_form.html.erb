@@ -1,0 +1,7 @@
+<!-- _reply_form.html.erb for replies -->
+<%= form_with(model: [ @post, comment], url: post_comments_path(@post), method: :post) do |form| %>
+  <%= form.text_area :comment, placeholder: 'Add a reply...', rows: 2 %>
+  <%= form.hidden_field :comment_id, value: comment&.id %>
+  <%= form.hidden_field :reply_id, value: comment.replies.ids %>
+  <%= form.submit 'Reply', class: 'btn btn-primary' %>
+<% end %>

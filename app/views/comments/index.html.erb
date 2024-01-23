@@ -4,9 +4,12 @@
 <p><%= @post.content %></p>
 
 <% @comments.each do |comment| %>
-  <div>
-    <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
-    <%= render partial: 'comments/comment_form', locals: { post: @post, comment: Comment.new(parent_comment_id: comment.id) } %>
+
+    <p><strong><%= comment.user.name %>:</strong> <%= comment.comment %></p>
+    <%= render partial: 'comments/reply_form', locals: { post: @post, comment: comment } %>
+    <% comment.replies.each do |reply| %>
+      <p><strong><%= reply.user.name %>:</strong> <%= reply.comment %></p>
+    <% end %>
 <% end %>
 
 <%= render partial: 'comments/comment_form', locals: { post: @post, comment: @comment } %>
