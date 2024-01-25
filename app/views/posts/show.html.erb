@@ -1,14 +1,35 @@
-<!-- Display Post Content -->
+<h2><%= @post.title %></h2>
+<p><%= @post.content %></p>
 
-<!-- Display Comments -->
 <% @comments.each do |comment| %>
-  <div class="comment">
-    <p><strong><%= comment.user.name %></strong>: <%= comment.comment %></p>
+
+  <p><strong><%= comment.user.name %>:</strong> <%= comment.comment %></p>
+   
+  <button class="showFormBtn" data-target="replyForm<%= comment.id %>">Reply</button>
+  <div class="replyFormContainer" id="replyForm<%= comment.id %>" style="display: none;">
     <%= render partial: 'comments/reply_form', locals: { post: @post, comment: comment } %>
-    <% comment.replies.each do |reply| %>
-      <p><strong><%= reply.user.name %>:</strong> <%= reply.comment %></p>
-    <% end %>
   </div>
+   
+    
+  <% comment.replies.each do |reply| %>
+    <p><strong><%= reply.user.name %>:</strong> <%= reply.comment %></p>
+    <button class="showFormBtn" data-target="replyForm<%= reply.id %>">Reply</button>
+  <div class="replyFormContainer" id="replyForm<%= reply.id %>" style="display: none;">
+    <%= render partial: 'comments/reply_form', locals: { post: @post, comment: comment } %>
+  </div>
+   
+  <% end %>
 <% end %>
 
-<%= render 'comments/comment_form', commentable: @post %>
+<%= render partial: 'comments/comment_form', locals: { post: @post, comment: @comment } %>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.showFormBtn').click(function() {
+      var targetId = $(this).data('target');
+      $('#' + targetId).toggle();
+    });
+  });
+</script>

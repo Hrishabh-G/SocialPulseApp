@@ -50,15 +50,15 @@ Rails.application.routes.draw do
   end
   
   resources :profiles, only: [:show, :edit, :update]
-  resources :comments do
-    resources :replies, only: [:create, :destroy]
-  end
+  # resources :comments do
+  #   resources :replies, only: [:create, :destroy]
+  # end
 
-  resources :comments do
-    member do
-      post 'reply'
-    end
-  end
+  # resources :comments do
+  #   member do
+  #     post 'reply'
+  #   end
+  # end
   # resources :posts do
   #   resources :comments do
   #     resources :replies
