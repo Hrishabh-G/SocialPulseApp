@@ -1,4 +1,4 @@
-<%= form_with(model: [ @post, comment], url: post_comments_path(@post), method: :post) do |form| %>
+<%= form_with(model: [ post, comment], url: post_comments_path(post), method: :post) do |form| %>
   <%= form.text_area :comment, placeholder: 'Add a reply...', rows: 2 %>
   <%= form.hidden_field :comment_id, value: comment&.id %>
   <%= form.submit 'Reply', class: 'btn btn-primary' %>
