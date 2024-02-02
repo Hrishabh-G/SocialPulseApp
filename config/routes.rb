@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  get 'profiles/show'
-  get 'profiles/edit'
-  get 'profiles/update'
+  # get 'profiles/show'
+  # put 'profiles/edit'
+  # put 'profiles/update'
+  resources :profiles, only: [:show, :edit, :update]
   get 'password_resets/new'
   get 'password_resets/create'
   get 'password_resets/edit'

@@ -6,30 +6,7 @@
   <style>
     <%= stylesheet_link_tag 'session/home'%>
   </style>
-  <style>
-  .comment-list{
-    display: none;
-  }
-  .mystyle{
-      display: block;
-    }
-    /* .overlay{
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.3);
-    } */
-    .reply-list{
-      display: none;
-    }
-    .reply-style{
-      display: block;
-      
-    }
-
-  </style>  
+ 
    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
@@ -41,23 +18,53 @@
         <img style="width: 5vh; height:5vh" src="<%= asset_path('message_icon')%>" alt="Messages">
       </div>
     </header> 
-    <div class="post-container">
-       <%= link_to 'create_post', new_post_path%>
+    <div class="main-body">
+      <div class="profile-section">
+        <div class="profile-img-section">
+          <div>
+            <% if current_user.profile_picture.attached? %>
+              <%= link_to profile_path(current_user) do %>
+                <%= image_tag current_user.profile_picture, class: "user_profile_seting_img" %>
+              <% end %>
+            <% end %>
+          </div> 
+          <div class="wellcome-text">
+            <p><strong>Wellcome, <%= current_user.name %> !</strong></p>
+          </div>
+          <div>
+            <%= button_to "Edit Profile", edit_profile_path(current_user), method: :get, class: "edit_button" %>
+          </div>
+        </div>
+      </div>
+      <div class="post-container">
+        
        
         <% @posts.each do |post| %>
           <div class="posts">
             <div class="user-name-section">
-              <strong><%= post.user.name %></strong>
-              <h3><%= post.title %></h3>
-              <p><%= post.content %></p>
+              <div class="user-profile-name">
+                <div>
+                  <% if post.user.profile_picture.attached? %>
+                    <%= image_tag post.user.profile_picture, class: "user_profile_img" %>
+                  <% end %> 
+                </div>
+                <div class="date-user-name-section">
+                  <p class="user-name"><strong><%= post.user.name %></strong></p>
+                  <p class="create-post-date"><%= post.created_at.strftime("%d %B %Y") %></p>
+                </div>
+              </div>
+              <div class="post-content-section">
+                <h3><%= post.title %></h3>
+                <p><%= post.content %></p>
+              </div>
             </div>
             <div class="post-content-section">
               
               <% if post.image.attached? %>
-                <%= image_tag post.image, style: "height: 80vh; width: 39vw;"%>
+                <%= image_tag post.image, style: "height: 80vh; width: 100%;"%>
               <% end %>
               <% if post.video.attached? %>
-                <%= video_tag post.video, style: "height: 80vh; width: 40vw;" %>
+                <%= video_tag post.video, style: "height: 80vh; width: 100%;" %>
               <% end %>
               
               <!-- Display other post details -->
@@ -74,55 +81,105 @@
               <img class="icon" src="<%= asset_path('share_button.png') %>" alt="Notifications">
             </div>
             <div id='comment' class="comment-list">
-            <div class="overlay"></div>
-              <% post.comments.each do |comment| %>
-
-                <p><strong><%= comment.user.name %>:</strong> <%= comment.comment %></p>
-                
-                <button class="showFormBtn" data-target="replyForm<%= comment.id %>">Reply</button>
-                <div class="replyFormContainer" id="replyForm<%= comment.id %>" style="display: none;">
-                  <%= render partial: 'comments/reply_form', locals: { post: post, comment: comment } %>
-                </div>
-                <button onclick="replyFunction()">show all replies</button>
-                
-                <% comment.replies.each do |reply| %>
-                  <p><strong><%= reply.user.name %>:</strong> <%= reply.comment %></p>
-                  <button class="showFormBtn" data-target="replyForm<%= reply.id %>">Reply</button>
-                <div class="replyFormContainer" id="replyForm<%= reply.id %>" style="display: none;">
-                  <%= render partial: 'comments/reply_form', locals: { post: post, comment: comment } %>
-                </div>
-                
-                
+              <div class="overlay"></div>
+                <% post.comments.each do |comment| %>
+                  <div class="all-comment">
+                    <div class="comments-setings">
+                      <div class="comment-profile-img">
+                        <% if comment.user.profile_picture.attached? %>
+                          <%= image_tag comment.user.profile_picture, class: "user-comment-profile-img" %>
+                        <% end %> 
+                      </div>
+                      <div class="user-name-comment ">
+                        <p><strong><%= comment.user.name %></strong></p>
+                        <p><%= comment.comment %></p>
+                      </div>
+                    </div> 
+                    <div class="show-reply-btn">
+                      <button class="showFormBtn reply-btn" data-target="replyForm<%= comment.id %>">Reply</button>
+                      <% if comment.replies.present? %> 
+                        <button class="showAllRepliesBtn" data-target="allReplies<%= comment.id %>">Show All Replies</button>
+                      <% end %>
+                    </div>
+                    <div class="replyFormContainer" id="replyForm<%= comment.id %>" style="display: none;">
+                      <%= render partial: 'comments/reply_form', locals: { post: post, comment: comment } %>
+                    </div>
+                  </div>
+                  <div class="allRepliesContainer" id="allReplies<%= comment.id %>" style="display: none;">
+                    <% comment.replies.each do |reply| %>
+                      <div class="all-replies">
+                        <div class="reply-seting">
+                          <div class="comment-profile-img">
+                            <% if reply.user.profile_picture.attached? %>
+                              <%= image_tag reply.user.profile_picture, class: "user-comment-profile-img" %>
+                            <% end %> 
+                          </div>
+                          <div class="user-name-comment">
+                            <p><strong><%= reply.user.name %>:</strong></p>
+                            <p><%= reply.comment %></p>
+                          </div>
+                        </div>
+                        <div class="show-reply-btn">
+                          <button class="showFormBtn" data-target="replyForm<%= reply.id %>">Reply</button>
+                        </div>  
+                        <div class="replyFormContainer" id="replyForm<%= reply.id %>" style="display: none;">
+                          <%= render partial: 'comments/reply_form', locals: { post: post, comment: comment } %>
+                        </div>
+                      </div> 
+                    <% end %>
+                  </div>
                 <% end %>
-              <% end %>
-              
 
-
-              <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-              <script>
-                $(document).ready(function() {
-                  $('.showFormBtn').click(function() {
-                    var targetId = $(this).data('target');
-                    $('#' + targetId).toggle();
-                  });
-                });
-              </script>
+                
+               
             </div>
           </div>
         <% end %>
-        
+      </div>
+      <div class="contacts-section">
+        <h1 class="contact-text"><strong>Contacts</strong></h1>
+      </div>
+    </div>
+  </div>
 <script>
 function myFunction() {
   var element = document.getElementById("comment");
   element.classList.toggle("mystyle");
 }
 
-function replyFunction(){
-  var element = document.getElementById('reply');
-  element.classList.toggle('reply-style');
-}
+
 </script> 
 </body>
 </html>
 
 
+ <script>
+    $(document).ready(function() {
+
+    //   function updateCommentBorders() {
+    //   $('.comment-container').each(function () {
+    //     var commentLength = $(this).find('p:last-child').text().length;
+    //     var borderLength = commentLength * 2; // You can adjust this multiplier as needed
+    //     $(this).css('border-width', borderLength + 'px');
+    //   });
+    // }
+
+    // // Call the function when the page loads and when showing new comments
+    // updateCommentBorders();
+
+
+      $('.showFormBtn').click(function() {
+        var targetId = $(this).data('target');
+        $('#' + targetId).toggle();
+        // // Update the comment borders after showing the form
+        // updateCommentBorders();
+      });
+
+      $('.showAllRepliesBtn').click(function() {
+      var targetId = $(this).data('target');
+      $('#' + targetId).toggle();
+      // // Update the comment borders after showing the form
+      // updateCommentBorders();
+      });  
+    });
+</script>

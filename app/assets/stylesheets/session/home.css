@@ -29,6 +29,7 @@ body, html {
   overflow-x: hidden; /* To hide horizontal overflow */
 }
 
+
 /* Styles for header */
 .main-header {
   display: flex;
@@ -38,6 +39,8 @@ body, html {
   width: 100%;
   height: 10vh;
   background-color: #f0f0f0;
+  position: sticky;
+  top: 0;
 }
 
 .main-header p {
@@ -95,16 +98,19 @@ body, html {
   /* padding: 20px; */
   background-color: #f9f9f9; /* Set your preferred background color */
   /* border: 1px solid */
-  margin-left: 30vw;
+  /* margin-left: 28vw; */
+  /* margin-right: 3vw; */
   max-width: 40vw;
+  /* overflow-y: auto; */
+  /* top: 0vh; */
 }
 
 .posts {
-  max-width: 40vw; /* Set maximum width as needed */
+  max-width: 500px; /* Set maximum width as needed */
   /* width: 100%; */
-  border: 1px solid;
+  border: 1px solid rgb(184, 180, 180);
   border-radius: 5px;
-  margin: 5px;
+  margin-bottom: 5px;
   /* height: auto; */
 }
 
@@ -150,3 +156,178 @@ body, html {
   margin: 1vw;
   border-radius: 20px;
 }
+
+.user_profile_img{
+  width: 3vw;
+  height: 6vh;
+  border-radius: 50%;
+}
+
+.user-profile-name{
+  display: flex;
+}
+
+.user-name{
+  /* text-align: center; */
+  margin-top: 0.6vh;
+  text-decoration: underline;
+  margin-bottom: 0.3vh;
+  margin-left: 0.3vh
+}
+
+.date-user-name-section{
+  margin-left: 0.5vh
+}
+
+.create-post-date{
+  font-weight: 100;
+}
+
+.post-content-section{
+  margin-top: 2vh;
+}
+
+.main-body{
+  display: flex;
+  margin-top: 3vh;
+  top: 13vh;
+  justify-content: space-around;
+  
+}
+
+.profile-section{
+  width: 20vw;
+  height: 85vh;
+  border: 1px solid rgb(184, 180, 180);
+  /* margin-right:2vw; */
+  border-radius: 5px;
+  /* margin-left: 5vw; */
+  border-radius: 5px;
+  position: sticky;
+  top: 12vh;
+  /* left: 0; */
+}
+
+.contacts-section{
+  width: 25vw;
+  height: 85vh;
+  border: 1px solid rgb(184, 180, 180);
+  /* margin-right:2vw; */
+  border-radius: 10px;
+  position: sticky;
+  top: 12vh;
+  /* right: 0; */
+}
+
+.contact-text{
+  /* text-decoration:underline; */
+  font-size: large;
+  margin-left: 1vw;
+  margin-top: 1vw;
+}
+
+.user_profile_seting_img{
+  width: 5vw;
+  height: 10vh;
+  border-radius: 50%;
+  /* margin-left: 7.2vw; */
+  margin-top: 5vh;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.profile-img-section{
+  height: 35vh;
+  border: 0.5px solid rgb(218, 214, 214);
+  
+}
+
+.wellcome-text{
+  margin-top: 2vh;
+  text-align: center;
+  font-size: large;
+}
+
+.edit_button{
+  margin-top: 1.5vh;
+  /* margin-left: 6.5vw; */
+  /* margin-right: 6.5vw; */
+  border-radius: 5px;
+  /* border: 1px solid black; */
+  /* padding: 3px; */
+  /* background-color: rgb(65, 182, 61); */
+  max-width: 80px;
+  /* justify-content: center; */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.comment-list{
+  display: none;
+}
+.mystyle{
+    display: block;
+    margin-left: 15px;
+    /* border: 0.5px inset; */
+  }
+  /* .overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.3);
+  } */
+  .reply-list{
+    display: none;
+  }
+  .reply-style{
+    display: block;
+    
+  }
+
+  /* .action-buttons-section{
+    border: 0.5px outset
+  } */
+
+  .user-name-comment{
+    border: 0.5px solid rgb(236, 230, 230);
+    background-color: rgba(229, 243, 238, 0.904);
+    border-radius: 10px;
+    padding: 5px;
+  }
+
+  .comments-setings{
+    display: flex;
+  }
+
+  .user-comment-profile-img{
+    width: 2vw;
+    height: 4vh;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .show-reply-btn{
+    display:flex;
+    margin-left:40px;
+    margin-top: 5px;
+  }
+
+  .all-comment{
+    margin-top: 15px;
+  }
+
+  .reply-seting{
+    display: flex;
+  }
+
+  .reply-btn{
+    margin-right: 5px;
+  }
+
+  .all-replies{
+    margin-top: 15px;
+    margin-left: 50px;
+  }
